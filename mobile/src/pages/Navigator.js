@@ -160,7 +160,5 @@ const SignedInNavigator = createBottomTabNavigator(
 );
 
 UsersNavigator.navigationOptions = ({ navigation }) => ({
-  tabBarVisible: navigation.state.index === 0,
   tabBarVisible: navigation.state.index === 1,
-  tabBarVisible: navigation.state.index === 2,
 });
