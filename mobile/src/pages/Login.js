@@ -10,7 +10,7 @@ import {
   AsyncStorage,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import urls from "../../env.js";
+import urls from "../env.js";
 
 const Login = ({ navigation }) => {
   const [userName, setUserName] = useState("");
