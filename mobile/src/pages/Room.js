@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import styled from "styled-components";
-import urls from "../../env.js";
+import urls from "../env.js";
 import { socket } from "../../App";
 
 const Rooms = ({ navigation }) => {

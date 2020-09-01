@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import styled from "styled-components";
-import urls from "../../env.js";
+import urls from "../env.js";
 import OneUser from "../components/oneUser";
 
 const Users = ({ navigation }) => {
