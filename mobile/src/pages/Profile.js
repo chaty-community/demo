@@ -4,11 +4,10 @@ import {
   Text,
   TextInput,
   Image,
-  ScrollView,
   Dimensions,
   TouchableOpacity,
   AsyncStorage,
-  Alert,
+  Alert
 } from "react-native";
 import { Icon } from "react-native-elements";
 import styled from "styled-components";
@@ -56,14 +55,13 @@ const Profile = ({ navigation }) => {
       Alert.alert("変更完了", "プロフィールを編集しました。");
     }
     const responseJSON = await response.json();
-    setName(responseJSON.updatedUser.name);
-    setStatusMessage(responseJSON.updatedUser.status_message);
     await AsyncStorage.setItem("myName", `${responseJSON.updatedUser.name}`);
     await AsyncStorage.setItem(
       "myStatusMessage",
       `${responseJSON.updatedUser.status_message}`
     );
   };
+
   const onPressLogoutBtn = () => {
     Alert.alert(
       "確認",
@@ -71,10 +69,10 @@ const Profile = ({ navigation }) => {
       [
         { text: "いいえ", style: "cancel" },
         { text: "ログアウト", onPress: onPressLogout },
-      ],
-      { cancelable: false }
+      ]
     );
   };
+
   const onPressLogout = async () => {
     await AsyncStorage.removeItem("isLoggedIn");
     await AsyncStorage.removeItem("myId");
@@ -85,48 +83,37 @@ const Profile = ({ navigation }) => {
   };
 
   return (
-    <React.Fragment>
-      <StyledScrollView>
-        <ChangeIconSpace>
-          <StyledImage
-            source={
-              img == "" || img == undefined || img == null
-                ? require("../../assets/img/icon.png")
-                : { uri: img }
-            }
-          />
-        </ChangeIconSpace>
-        <Label>名前</Label>
-        <StyledTextInput
-          onChangeText={(text) => onChangeName(text)}
-          value={name}
-          placeholderTextColor="#999999"
-          autoCapitalize="none"
+    <StyledView>
+      <ChangeIconSpace>
+        <StyledImage
+          source={{ uri: img }}
         />
-        <Label>ステータスメッセージ</Label>
-        <StyledTextInput
-          onChangeText={(text) => onChangeStatusMessage(text)}
-          value={statusMessage}
-          placeholderTextColor="#999999"
-          autoCapitalize="none"
-        />
-        <StyledTouchableOpacity
-          onPress={onPressProfileSave}
-          activeOpacity={0.8}
-        >
-          <Title>保存</Title>
-        </StyledTouchableOpacity>
-        <LogoutBtn activeOpacity={0.8} onPress={onPressLogoutBtn}>
-          <Icon name="sync-disabled" color="#7cc5db" size={40} />
-          <LogoutLabel>ログアウトする</LogoutLabel>
-          <Icon name="navigate-next" color="#7cc5db" size={40} />
-        </LogoutBtn>
-      </StyledScrollView>
-    </React.Fragment>
+      </ChangeIconSpace>
+      <Label>名前</Label>
+      <StyledTextInput
+        onChangeText={(text) => onChangeName(text)}
+        value={name}
+        autoCapitalize="none"
+      />
+      <Label>ステータスメッセージ</Label>
+      <StyledTextInput
+        onChangeText={(text) => onChangeStatusMessage(text)}
+        value={statusMessage}
+        autoCapitalize="none"
+      />
+      <StyledTouchableOpacity onPress={onPressProfileSave} activeOpacity={0.8}>
+        <Title>保存</Title>
+      </StyledTouchableOpacity>
+      <LogoutBtn activeOpacity={0.8} onPress={onPressLogoutBtn}>
+        <Icon name="sync-disabled" color="#7cc5db" size={40} />
+        <LogoutLabel>ログアウトする</LogoutLabel>
+        <Icon name="navigate-next" color="#7cc5db" size={40} />
+      </LogoutBtn>
+    </StyledView>
   );
 };
 const { width } = Dimensions.get("window");
-const StyledScrollView = styled(ScrollView)`
+const StyledView = styled(View)`
   background-color: #fff;
 `;
 const ChangeIconSpace = styled(View)`
@@ -190,5 +177,4 @@ const LogoutLabel = styled(Text)`
   color: #7cc5db;
   padding-top: 10px;
 `;
-
 export default Profile;
